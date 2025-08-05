@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/style.css" />
+    <title>Realm Archive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#e7efe3] font-sans">
+    <header class="bg-[#b8cbbb] shadow-md py-4">
+        <nav class="flex justify-center space-x-8 text-lg font-semibold">
+            <a href="#photo">싱글벙글지구촌갤</a>
+            <a href="#ddong">똥글갤</a>
+            <a href="#mokoko">모코코 키우기</a>
+            <a href="#settings">설정</a>
+        </nav>
+    </header>
+
+    <!-- 메인 타이틀 -->
+    <div class="text-center mt-10">
+        <h1 class="text-4xl font-bold text-[#3a4f39]">렐름글판</h1>
+    </div>
+
+    <!-- 제목 입력 블록 (기본 상태) -->
+    <div id="title-block" class="max-w-xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+        <input
+            type="text"
+            id="titleInput"
+            placeholder="제목을 입력해주세요"
+            class="w-full mb-2 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+        />
+    </div>
+
+    <!-- 글 작성 블록 (숨김 상태에서 클릭 시 표시 - hidden 삭제) -->
+    <form id="story-form" class="max-w-xl mx-auto mt-4 p-6 bg-white rounded-lg shadow-md hidden">
+        <textarea
+            id="bodyInput"
+            cols="30"
+            rows="10"
+            placeholder="글을 입력해주세요"
+            class="w-full mb-4 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"
+        ></textarea>
+        <button
+            type="submit"
+            id="getStoryButton"
+            class="w-full bg-[#5f7d4e] text-white py-2 rounded hover:bg-[#4e6c3e] transition-colors duration-300"
+        >
+            Upload
+        </button>
+    </form>
+
+    <!-- 검색 및 정렬 기능 -->
+    <div class="max-w-xl mx-auto mt-6 flex gap-2 items-center">
+        <form id="search-form" class="flex-grow flex items-center gap-2 bg-white p-4 rounded-lg shadow-md">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="검색어를 입력해주세요"
+                class="flex-grow px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
+            <button
+                type="submit"
+                id="searchStoryButton"
+                class="bg-[#5f7d4e] text-white px-6 py-2 rounded hover:bg-[#4e6c3e] transition-colors duration-300"
+            >
+                검색
+            </button>
+        </form>
+
+        <select
+            id="sortSelect"
+            class="px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 bg-white shadow-md"
+        >
+            <option value="newest">최신순</option>
+            <option value="oldest">오래된순</option>
+        </select>
+    </div>
+
+    <!-- 게시글 렌더링 영역 -->
+    <div id="archiveContainer" class="max-w-3xl mx-auto mt-10 flex flex-col gap-4 px-4"></div>
+    
+    <script src="js/date.js"></script>
+    <script src="js/pushform.js"></script>
+    <script src="js/writing_story_from_hidden.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>
