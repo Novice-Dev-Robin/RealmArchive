@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>모코코 키우기</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/stat.css">
+</head>
+<body>
+  
+  <!--렐카이브 로그인 확인 알람-->
+  <div id="login-alert-overlay" class="hidden">
+    <div id="login-alert" class="modal">
+      <p>먼저 <strong>렐름 아카이브</strong>에 로그인해주세요!</p>
+      <a href="https://novice-dev-robin.github.io/RealmArchive/" target="_blank">로그인 페이지로 이동하기</a>
+      <button id="login-alert-redirection">새로고침</button>
+    </div>
+  </div>
+
+
+  <div id ="clock" class="clock">
+    <span id="date"></span>
+    <span id="time">00:00:00</span>
+  </div>
+  <div id="menu" class="menu">
+    <img id="menu-icon" src="assets/menu2.png" alt="메뉴" class="menu-icon"/>
+    <img id="user-icon" src="assets/user.png" alt="로그인" class="user-icon"/>
+    <img id="toDo-icon" src="assets/toDo.png" alt="설정" class="toDo-icon"/>
+  </div>
+  
+  <div id = "weather" class="weather">
+    <span id="weather-now"></span>
+    <span id="temperature"></span>
+  </div>
+  
+  <div class="google-search">
+    <form class="search-form" action="https://www.google.com/search" method="GET" target="_blank">
+      <input class="search-input" type="text" name="q" placeholder="구글 검색어 입력" />
+      <button class="search-button" type="submit">
+        <img src="assets/mag.png" alt="검색" class="search-icon"/>
+      </button>
+    </form>
+  </div>
+
+  <div id="mokoko" class="mokoko"></div>
+  
+  <div id="mokoko-name" class="mokoko-name">
+    <span class="level">Lv.1</span>
+    <span class="username">모코코</span>
+  </div>
+
+  <!--스탯창 화살표-->
+  <div class="stat-wrapper">
+    <!-- 화살표가 들어가는 둥근 네모 박스 -->
+    <div class="arrow-box" id="stat-toggle">
+      <svg class="toggle-arrow" width="24" height="24" viewBox="0 0 24 24" fill="#FF9E6D" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 16L6 10H18L12 16Z"/>
+      </svg>
+    </div>
+
+    <!-- 스탯창 -->
+    <div class="stat-popup" id="stat-panel">
+      <label class="stat-font">HP</label>
+      <div class="bar-container">
+        <div class="bar hp" style="width: 100%;"></div>
+      </div>
+      <label class="stat-font">STR</label>
+      <div class="bar-container">
+        <div class="bar str" style="width: 60%;"></div>
+      </div>
+      <label class="stat-font">INT</label>
+      <div class="bar-container">
+        <div class="bar int" style="width: 80%;"></div>
+      </div>
+    </div>
+</div>
+
+
+
+
+  <div id = "mokok-play" class="mokoko-play">
+    <img src = "assets/barbell.png" alt="운동" class = "playAsset barbell-icon"/>
+    <img src = "assets/coding.png" alt ="코딩" class ="playAsset coding-icon"/>
+    <img src = "assets/game-controller.png" alt="게임" class="playAsset game-controller-icon"/>
+  </div>
+
+  <div id="login-popup" class="login-popup">
+    <div class="login-popup-content">
+      <span class="close-btn">&times;</span> <!-- 닫기 버튼 -->
+      <h2>모코코 설정</h2>
+      <input type="text" class="styled-input level-input" placeholder="레벨" />
+      <input type="text" class="styled-input username-input" placeholder="모코코 이름" />
+      <button class="login-button">로 정했다!</button>
+    </div>
+  </div>
+
+
+  <div id="todo-popup" class="todo-popup hidden">
+    <div class="todo-popup-content">
+      <span class="close-todo">&times;</span>
+      <h2>모코코 할 일</h2>
+      <form id="todo-form">
+        <input type="text" id="todo-input" class="styled-input" placeholder="할 일 추가하기..." />
+        <button type="submit">추가</button>
+      </form>
+      <ul id="todo-list"></ul>
+    </div>
+  </div>
+  
+  <script type="module" src="js/firebase.js"></script><!--렐카이브 연동-->
+  <script type="module" src="js/auth.js"></script> <!--렐카이브 로그인 여부 우선 확인-->
+  <script src = "js/menu.js"></script>
+  <script src="js/mokoko.js"></script>
+  <script src="js/time.js"></script>
+  <script type="module" src="js/weather.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/login.js"></script>
+  <script src = "js/toDo.js"></script>
+  <script src="js/windowSizeHandling.js"></script>
+</body>
+</html>
+

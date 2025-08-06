@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'Cafe24Ohsquare';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/Cafe24Ohsquare.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* 스탯 폰트 */
+.stat-font{
+    font-family: "Cafe24Ohsquare";    
+}
+/* 스탯바 설정*/
+.bar-container {
+  width: 100px;
+  height: 20px;
+  background-color: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* 각 스탯별 색상 설정*/
+.bar.hp {
+  height: 100%;
+  background-color: #7ED957; /* 체력은 초록색 계열 */
+  border-radius: 10px 0 0 10px;
+}
+
+.bar.str {
+  height: 100%;
+  background-color: #FF6B6B; /* 힘은 붉은색 계열 */
+  border-radius: 10px 0 0 10px;
+}
+
+.bar.int {
+  height: 100%;
+  background-color: #4D9DE0; /* 지능은 파랑 계열 */
+  border-radius: 10px 0 0 10px;
+}
