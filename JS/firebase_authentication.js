@@ -58,6 +58,15 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         }
         window.location.href = "/RealmArchive/index.html"; // 로그인 성공 후 이동 - 절대경로
+        // 로그인 후 프로필 표시
+        const menuButton = document.getElementById("menuButton");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+
+        document.getElementById("authArea").classList.remove("hidden");
+        menuButton.addEventListener("click", () => {
+          dropdownMenu.classList.toggle("hidden");
+        });
+        document.getElementById("menuButton").innerText = username + " ▼"
       } catch (error) {
         message.textContent = `구글 로그인 실패: ${error.message}`;
       }
@@ -67,18 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
   onAuthStateChanged(auth, (user) => {
     if (user) { // 로그인 상태이면?
       console.log("현재 로그인 중:", user.email);
-
-      const menuButton = document.getElementById("menuButton");
-      const dropdownMenu = document.getElementById("dropdownMenu");
-
-      document.getElementById("authArea").classList.remove("hidden");
-      menuButton.addEventListener("click", () => {
-        dropdownMenu.classList.toggle("hidden");
-      });
-
-      // 사용자 이름 표시
-      document.getElementById("menuButton").innerText = username + " ▼"
-    } else {
+    } 
+    else {
       console.log("로그아웃 상태");
     }
   });
