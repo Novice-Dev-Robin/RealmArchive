@@ -28,7 +28,7 @@ document.querySelector("#deleteButton").addEventListener("click", () => {
   const updatedStories = savedStories.filter(item => item.id !== storyId);
   localStorage.setItem(ARCHIVE_KEYS, JSON.stringify(updatedStories));
   alert("삭제되었습니다.");
-  window.location.href = "RealmArchiveMain.html";
+  window.location.href = "index.html";
 });
 
 // 수정 버튼 (프롬프트 방식)
