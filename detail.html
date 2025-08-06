@@ -6,12 +6,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Story Detail</title>
 </head>
-<body class="bg-emerald-50 min-h-screen flex flex-col font-sans">
+<body class="bg-blue-50 min-h-screen flex flex-col font-sans">
   <!-- 상단 네비 -->
-  <header class="bg-stone-700 text-white shadow-md p-4">
+  <header class="bg-blue-200 text-blue-900 shadow-md p-4">
     <div class="max-w-5xl mx-auto flex justify-between items-center">
       <h1 class="text-2xl font-extrabold tracking-wide">Realm Archive</h1>
-      <a href="RealmArchiveMain.html" class="bg-emerald-600 px-4 py-2 rounded hover:bg-emerald-700 transition">← 목록으로</a>
+      <a href="RealmArchiveMain.html" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">← 목록으로</a>
     </div>
   </header>
 
@@ -19,37 +19,35 @@
   <main class="flex-grow flex justify-center mt-8 px-4">
     <div id="detailContainer" class="max-w-3xl w-full bg-white rounded-lg shadow-lg overflow-hidden">
       <!-- 이미지 -->
-      <div class="h-64 bg-stone-300 flex items-center justify-center">
-        <span class="text-stone-500">이미지가 없습니다</span>
+      <div class="h-64 bg-blue-100 flex items-center justify-center">
+        <span class="text-blue-400">이미지가 없습니다</span>
       </div>
 
       <!-- 내용 -->
       <div class="p-6">
-        <h1 id="detailTitle" class="text-3xl font-extrabold font-size:24px text-stone-800 mb-3"></h1>
-        <p id="detailDate" class="text-sm text-stone-500 mb-6"></p>
-        <p id="detailText" class="text-lg font-size:16px text-stone-700 leading-relaxed mb-8"></p>
+        <h1 id="detailTitle" class="text-3xl font-extrabold text-blue-900 mb-3"></h1>
+        <p id="detailDate" class="text-sm text-gray-500 mb-6"></p>
+        <p id="detailText" class="text-lg text-gray-700 leading-relaxed mb-8"></p>
 
         <!-- 태그 (옵션) -->
         <div id="tagContainer" class="flex gap-2 mb-8">
-          <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm">#아카이브</span>
+          <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">#아카이브</span>
         </div>
 
-        <!-- 수정, 삭제 버튼 hidden -->
-        <!-- 글 작성자만 수정할 수 있게  -->
+        <!-- 수정, 삭제 버튼 -->
         <div class="flex gap-4"> 
-          <button id="editButton" class="flex-1 bg-emerald-600 text-white py-3 rounded hover:bg-emerald-700 transition hidden">✏ 수정</button>
-          <button id="deleteButton" class="flex-1 bg-stone-700 text-white py-3 rounded hover:bg-stone-800 transition hidden">🗑 삭제</button>
+          <button id="editButton" class="flex-1 bg-blue-500 text-white py-3 rounded hover:bg-blue-600 transition hidden">✏ 수정</button>
+          <button id="deleteButton" class="flex-1 bg-blue-300 text-blue-900 py-3 rounded hover:bg-blue-400 transition hidden">🗑 삭제</button>
         </div>
         
         <!-- 좋아요와 댓글 -->
         <div id="LikeAndComment">
-          <button id="likeButton" class="bg-green-600 text-white px-4 py-2 rounded mt-4"> 개추 (<span id="likeCount">0</span>)</button>
+          <button id="likeButton" class="bg-blue-400 text-white px-4 py-2 rounded mt-4 hover:bg-blue-500"> 개추 (<span id="likeCount">0</span>)</button>
 
           <hr class="my-4"/>
 
           <div id="commentSection">
             <h3 class="text-xl font-semibold mb-2">💬 댓글</h3>
-            <!-- <ul id="commentList" class="mb-4 space-y-2"></ul> -->
 
             <h2 class="text-xl font-bold mt-8 mb-4">댓글</h2>
             <div id="comment-list" class="space-y-4">
@@ -57,7 +55,7 @@
             </div>
             
             <input type="text" id="commentInput" placeholder="댓글을 입력하세요" class="border px-2 py-1 w-full"/>
-            <button id="commentSubmit" class="mt-2 bg-yellow-200 text-emerald-700 px-3 py-1 rounded-full text-sm">댓글 작성</button>
+            <button id="commentSubmit" class="mt-2 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">댓글 작성</button>
           </div>
         </div>
 
@@ -65,6 +63,8 @@
     </div>
   </main>
 </body>
+
+<script type="module" src="js/firebase_authentication.js"></script>
 <script src="js/date.js"></script>
 <script src="js/detail_main.js"></script>
 <script type="module" src="js/detail_LikeAndComment.js"></script>

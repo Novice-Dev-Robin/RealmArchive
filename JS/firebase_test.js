@@ -14,7 +14,8 @@ async function migrateToFirestore() {
             title: story.title,
             text: story.text,
             date: story.date,
-            likes: 0
+            likes: 0,
+            uid: auth.currentUser.uid  // 로그인한 사용자 UID 추가
         });
         console.log(`✅ 게시글 ${story.id} 저장 완료`);
     }
@@ -32,7 +33,8 @@ async function migrateToFirestore() {
                 id: comment.id,
                 text: comment.text,
                 timestamp: comment.timestamp || new Date().toISOString(),
-                username: comment.username || "익명"
+                username: auth.currentUser.displayName || "익명",
+                uid: auth.currentUser.uid  // 로그인한 사용자 UID 추가
             });
             console.log(`↳ 댓글 저장됨: ${comment.text}`);
         }
