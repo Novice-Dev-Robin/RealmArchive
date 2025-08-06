@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
             createdAt: new Date(),
           });
         }
-        window.location.href = "./index.html"; // 로그인 성공 후 이동
+        window.location.href = "../index.html"; // 로그인 성공 후 이동
       } catch (error) {
         message.textContent = `구글 로그인 실패: ${error.message}`;
       }
