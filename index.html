@@ -15,12 +15,26 @@
             <a href="#photo">싱글벙글지구촌갤</a>
             <a href="#ddong">똥글갤</a>
             <a href="./apps/mokokoWolrd/index.html">모코코 키우기</a>
-            <a href="#settings">설정</a>
             </nav>
+
             <!-- 로그인 버튼 -->
-            <a href="login.html" class="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200 text-sm">
+            <a href="login.html" id="loginBtn" class="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200 text-sm">
                 로그인
             </a>
+
+            <!-- 로그인 완료 후 표시 -->
+            <div id="authArea" class="hidden relative inline-block text-left">
+                <button id="menuButton" class="bg-blue-600 text-white px-4 py-2 rounded w-48 text-left">
+                    마이페이지 ▼
+                </button>
+
+                <!-- 드롭다운 메뉴 -->
+                <div id="dropdownMenu" class="hidden absolute mt-1 w-48 bg-white border rounded shadow-lg">
+                    <a href="#setting" class="block px-4 py-2 hover:bg-gray-100">설정</a>
+                    <a href="#profile" class="block px-4 py-2 hover:bg-gray-100">프로필</a>
+                    <a href="#logout" class="block px-4 py-2 hover:bg-gray-100">로그아웃</a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -90,5 +104,7 @@
     <script src="JS/pushform.js"></script>
     <script src="JS/writing_story_from_hidden.js"></script>
     <script src="JS/search.js"></script>
+    
+    <script src="JS/firebase_authentication.js"></script>
 </body>
 </html>
