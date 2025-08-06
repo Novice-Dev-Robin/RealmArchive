@@ -65,8 +65,19 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   onAuthStateChanged(auth, (user) => {
-    if (user) {
+    if (user) { // 로그인 상태이면?
       console.log("현재 로그인 중:", user.email);
+
+      const menuButton = document.getElementById("menuButton");
+      const dropdownMenu = document.getElementById("dropdownMenu");
+
+      document.getElementById("authArea").classList.remove("hidden");
+      menuButton.addEventListener("click", () => {
+        dropdownMenu.classList.toggle("hidden");
+      });
+
+      // 사용자 이름 표시
+      document.getElementById("menuButton").innerText = username + " ▼"
     } else {
       console.log("로그아웃 상태");
     }
