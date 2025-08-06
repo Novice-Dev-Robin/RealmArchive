@@ -8,7 +8,7 @@
 </head>
 <body class="bg-blue-50 min-h-screen flex flex-col font-sans">
   <!-- 상단 네비 -->
-  <header class="bg-blue-200 text-blue-900 shadow-md p-4">
+  <header class="bg-white text-blue-900 shadow-md p-4">
     <div class="max-w-5xl mx-auto flex justify-between items-center">
       <h1 class="text-2xl font-extrabold tracking-wide">Realm Archive</h1>
       <a href="RealmArchiveMain.html" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">← 목록으로</a>
@@ -36,8 +36,8 @@
 
         <!-- 수정, 삭제 버튼 -->
         <div class="flex gap-4"> 
-          <button id="editButton" class="flex-1 bg-blue-500 text-white py-3 rounded hover:bg-blue-600 transition hidden">✏ 수정</button>
-          <button id="deleteButton" class="flex-1 bg-blue-300 text-blue-900 py-3 rounded hover:bg-blue-400 transition hidden">🗑 삭제</button>
+          <button id="editButton" class="flex-1 bg-blue-500 text-white py-3 rounded hover:bg-blue-600 transition ">✏ 수정</button>
+          <button id="deleteButton" class="flex-1 bg-blue-300 text-blue-900 py-3 rounded hover:bg-blue-400 transition ">🗑 삭제</button>
         </div>
         
         <!-- 좋아요와 댓글 -->
@@ -64,10 +64,9 @@
   </main>
 </body>
 
-<script type="module" src="js/firebase_authentication.js"></script>
 <script src="js/date.js"></script>
 <script src="js/detail_main.js"></script>
 <script type="module" src="js/detail_LikeAndComment.js"></script>
-<script type="module" src="js/config.js"></script>
+<script type="module" src="js/firebase_authentication.js"></script>
 <script type="module" src="js/firebase_test.js"></script>
 </html>
