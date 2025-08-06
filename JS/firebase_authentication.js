@@ -61,6 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "/RealmArchive/index.html"; // 로그인 성공 후 이동 - 절대경로
         window.addEventListener("DOMContentLoaded", () => {
           // 로그인 후 프로필 표시 
+          const loginBtn = document.querySelector("#loginBtn");
+          loginBtn.classList.add("hidden");
+
           const menuButton = document.getElementById("menuButton");
           const dropdownMenu = document.getElementById("dropdownMenu");
 
