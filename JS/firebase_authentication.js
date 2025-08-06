@@ -32,6 +32,7 @@ const db = getFirestore(app);  // Firestore 초기화 추가
 window.db = db;
 
 const auth = getAuth(app);
+window.auth = auth;
 const provider = new GoogleAuthProvider();
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -69,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("menuButton").innerText = username + " ▼"
       } catch (error) {
         message.textContent = `구글 로그인 실패: ${error.message}`;
+        console.log(error.message);
       }
     });
   }
