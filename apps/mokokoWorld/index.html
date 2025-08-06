@@ -7,9 +7,11 @@
   <link rel="stylesheet" href="css/stat.css">
 </head>
 <body>
+
+
   
   <!--렐카이브 로그인 확인 알람-->
-  <div id="login-alert-overlay" class="hidden">
+  <div id="login-alert-overlay" class="modal">
     <div id="login-alert" class="modal">
       <p>먼저 <strong>렐름 아카이브</strong>에 로그인해주세요!</p>
       <a href="https://novice-dev-robin.github.io/RealmArchive/" target="_blank">로그인 페이지로 이동하기</a>
@@ -107,8 +109,9 @@
     </div>
   </div>
   
-  <script type="module" src="js/firebase.js"></script><!--렐카이브 연동-->
-  <script type="module" src="js/auth.js"></script> <!--렐카이브 로그인 여부 우선 확인-->
+  
+  <script type="module" src="../../JS/firebase_authentication.js"></script><!--렐카이브 로그인 여부 우선 확인-->
+  <script type="module" src="js/auth.js"></script>
   <script src = "js/menu.js"></script>
   <script src="js/mokoko.js"></script>
   <script src="js/time.js"></script>
@@ -117,6 +120,7 @@
   <script src="js/login.js"></script>
   <script src = "js/toDo.js"></script>
   <script src="js/windowSizeHandling.js"></script>
+  
 </body>
 </html>
 
