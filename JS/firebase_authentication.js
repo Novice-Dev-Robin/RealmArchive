@@ -77,4 +77,4 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-export { auth, db, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, collection };
+export { auth, db, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, collection, getDoc, setDoc, doc};
