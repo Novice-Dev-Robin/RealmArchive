@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
         menuButton.addEventListener("click", () => {
         dropdownMenu.classList.toggle("hidden");
         });
-        document.getElementById("menuButton").innerText = username + " ▼";
+        document.getElementById("menuButton").innerText = user.displayName + " ▼";
     });
 });
+
+export { auth };

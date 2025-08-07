@@ -9,6 +9,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 import { // 계정 저장
+  collection,
   doc,
   setDoc,
   getDoc,
@@ -76,4 +77,4 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-export { auth, db, onAuthStateChanged, GoogleAuthProvider, signInWithPopup };
+export { auth, db, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, collection };
