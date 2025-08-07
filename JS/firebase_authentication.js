@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
             createdAt: new Date(),
           });
         }
-        window.location.href = "/RealmArchive/index.html"; // 로그인 성공 후 이동 - 절대경로
+        window.location.href = "/index.html"; // 로그인 성공 후 이동 - 절대경로
       } catch (error) {
         message.textContent = `구글 로그인 실패: ${error.message}`;
         console.log(error.message);
