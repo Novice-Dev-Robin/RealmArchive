@@ -24,26 +24,38 @@
 
             <!-- 로그인 완료 후 표시 -->
             <div id="authArea" class="hidden relative inline-block text-left">
-                <button id="menuButton" class="bg-blue-600 text-white px-4 py-2 rounded w-48 text-left">
-                    마이페이지 ▼
+                <button id="menuButton" class="bg-blue-500 text-white px-4 py-2 rounded text-left">
                 </button>
+
 
                 <!-- 드롭다운 메뉴 -->
                 <div id="dropdownMenu" class="hidden absolute mt-1 w-48 bg-white border rounded shadow-lg">
                     <a href="#setting" class="block px-4 py-2 hover:bg-gray-100">설정</a>
                     <a href="#profile" class="block px-4 py-2 hover:bg-gray-100">프로필</a>
-                    <a href="#logout" class="block px-4 py-2 hover:bg-gray-100">로그아웃</a>
+                    <button id="logout" class="block w-full text-left px-4 py-2 hover:bg-gray-100">로그아웃</button>
                 </div>
             </div>
         </div>
     </header>
+
+    <!-- 렐카이브 로그아웃 확인창 -->
+    <div id="logout-alert-overlay">
+     <div id="logout-alert">
+       <p class = "text-2xl mb-4"> <strong> 로그아웃하시겠습니까? </strong> </p>
+
+       <button id="logoutBtn" class="border border-black text-black bg-white px-4 py-2 rounded hover:bg-gray-100 transition-colors duration-200 text-sm">
+       로그아웃
+       </button>
+       <button id="backToMain" class="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200 text-sm"> 메인으로 돌아가기 </button>
+      </div>
+    </div>
 
     <!-- 메인 타이틀 -->
     <div class="text-center mt-10">
         <h1 class="text-4xl font-bold text-blue-800">렐름글판</h1>
     </div>
 
-    <!-- 제목 입력 블록 -->
+    <!-- 제목 입력 블록 --> 
     <div id="title-block" class="max-w-xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
         <input
             type="text"
@@ -83,8 +95,7 @@
                 type="submit"
                 id="searchStoryButton"
                 class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition-colors duration-300"
-            >
-                검색
+            >검색
             </button>
         </form>
 
@@ -100,11 +111,15 @@
     <!-- 게시글 렌더링 영역 -->
     <div id="archiveContainer" class="max-w-3xl mx-auto mt-10 flex flex-col gap-4 px-4"></div>
     
+    <!-- 날짜 display용으로 변환-->
     <script src="JS/date.js"></script>
+    <!-- 글 게시 -->
     <script src="JS/pushform.js"></script>
     <script src="JS/writing_story_from_hidden.js"></script>
+    <!-- 검색 -->
     <script src="JS/search.js"></script>
-    
+    <!-- 로그인 + 로그아웃 -->
     <script type="module" src="JS/afterLogin.js"></script>
+    <script type="module" src="JS/logout.js"></script>
 </body>
 </html>
