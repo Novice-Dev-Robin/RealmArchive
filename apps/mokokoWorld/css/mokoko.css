@@ -1,0 +1,53 @@
+.customization-ui {
+  position: absolute;
+  top: 10%;
+  left: 60%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+
+
+
+.mokoko-wrapper {
+  position: relative;
+  width: 644px;     /* 원하는 크기로 설정 */
+  height: 644px;
+  transform: scale(0.6); /* 크기 조절 시 사용 */
+  /* 이동하려면 margin이나 transform: translate 등 사용 가능 */
+}
+
+.mokoko-part {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;       /* 부모 크기에 맞춤 */
+  height: 100%;
+  pointer-events: none; /* 마우스 이벤트 막기 */
+  image-rendering: pixelated; /* 픽셀 스타일 유지 (선택) */
+}
+
+
+#tongue {
+  position: absolute;
+  width: 15.8%;     /* 너비 조절 */
+  height: 9.6%;   /* 높이 조절 */
+  top: 56.1%;       /* 위치 */
+  left: 45.3%;      /* 중앙 정렬 */
+  object-fit: contain;
+}
+
+#leaf {
+    position: absolute;
+    width: 47.3%;
+    height: auto;
+    left: 27.8%;
+    top: 0.5%;
+}
