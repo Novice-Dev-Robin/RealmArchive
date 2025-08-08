@@ -33,6 +33,10 @@ body {
 /* 렐카이브 로그인 확인 팝업 */
 /* style.css에 추가 */
 
+#login-alert-overlay.hidden {
+  display: none !important;
+}
+
 #login-alert-overlay {
   position: fixed;
   top: 0;
@@ -40,11 +44,11 @@ body {
   width: 100vw;
   height: 100vh;
   background: rgba(0,0,0,0.6); /* 반투명 검은 배경 */
-  display: none;
   justify-content: center;
   align-items: center;
   z-index: 10000;
   font-family: "NEXON Lv2 Gothic";
+  display:flex;
 }
 
 #login-alert {
