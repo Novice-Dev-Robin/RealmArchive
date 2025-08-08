@@ -15,8 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const userSnap = await getDoc(userRef);
 
         if (!userSnap.exists()) {
+          const nickname = prompt("처음 로그인하셨네요! 사용할 이름을 입력해주세요.", user.displayName || "");
+          if (!nickname) { // 만약 이름 작성 안하면
+            alert("이름이 입력되지 않아 기본 이름으로 저장됩니다.");
+          }
+
           await setDoc(userRef, {
-            name: user.displayName,
+            name: nickname || user.displayName,
             email: user.email,
             uid: user.uid,
             createdAt: new Date(),
