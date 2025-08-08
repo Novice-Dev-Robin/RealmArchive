@@ -22,7 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
             createdAt: new Date(),
           });
         }
-        window.location.href = "../index.html"; // 로그인 성공 후 이동 - 절대경로
+        // 로그인 성공 후 이동
+        if (location.hostname === "127.0.0.1" || location.hostname === "localhost") {
+          // 로컬 개발 환경 (Live Server)
+          window.location.href = "./index.html";
+        } else {
+          // GitHub Pages 등 배포 환경
+          window.location.href = "./RealmArchive/index.html";
+        }
       } catch (error) {
         message.textContent = `구글 로그인 실패: ${error.message}`;
         console.log(error.message);
