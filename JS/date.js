@@ -15,3 +15,5 @@ function formatForDisplay(isoString) { // 날짜 표현 가공용 함수
 const dateString = { // 실제 날짜 데이터
     date : new Date().toISOString()
 };
+
+export { formatForDisplay, dateString }
