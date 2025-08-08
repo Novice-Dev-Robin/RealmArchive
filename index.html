@@ -1,124 +1,131 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/style.css" />
-    <title>Realm Archive</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Realm Archive</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-blue-50 font-sans">
-    <header class="bg-white rounded-lg py-4 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
-            <!-- 네비게이션 메뉴 -->
-            <nav class="flex space-x-8 text-lg font-semibold text-blue-900">
-            <a href="#photo">싱글벙글지구촌갤</a>
-            <a href="#ddong">똥글갤</a>
-            <a href="./apps/mokokoWorld/index.html">모코코 키우기</a>
-            </nav>
+<body class="bg-gradient-to-b from-blue-100 to-white font-sans min-h-screen">
 
-            <!-- 로그인 버튼 -->
-            <a href="login.html" id="loginBtn" class="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200 text-sm">
-                로그인
-            </a>
+  <header class="bg-white rounded-lg py-4 shadow-md">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <!-- 네비게이션 메뉴 -->
+      <nav class="flex space-x-10 text-lg font-semibold text-blue-900">
+        <a href="#photo" class="hover:text-blue-600 transition-colors">싱글벙글지구촌갤</a>
+        <a href="#ddong" class="hover:text-blue-600 transition-colors">똥글갤</a>
+        <a href="./apps/mokokoWorld/index.html" class="hover:text-blue-600 transition-colors">모코코 키우기</a>
+      </nav>
 
-            <!-- 로그인 완료 후 표시 -->
-            <div id="authArea" class="hidden relative inline-block text-left">
-                <button id="menuButton" class="bg-blue-500 text-white px-4 py-2 rounded text-left">
-                </button>
+      <!-- 로그인 버튼 -->
+      <a href="login.html" id="loginBtn" 
+         class="bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm font-medium">
+        로그인
+      </a>
 
-                <!-- 드롭다운 메뉴 -->
-                <div id="dropdownMenu" class="hidden absolute mt-1 w-48 bg-white border rounded shadow-lg">
-                    <a href="#setting" class="block px-4 py-2 hover:bg-gray-100">설정</a>
-                    <a href="#profile" class="block px-4 py-2 hover:bg-gray-100">프로필</a>
-                    <button id="logout" class="block w-full text-left px-4 py-2 hover:bg-gray-100">로그아웃</button>
-                </div>
-            </div>
+      <!-- 로그인 완료 후 표시 -->
+      <div id="authArea" class="hidden relative inline-block text-left">
+        <button id="menuButton" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-left font-medium hover:bg-blue-700 transition-colors duration-200"></button>
+
+        <!-- 드롭다운 메뉴 -->
+        <div id="dropdownMenu" class="hidden absolute mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg">
+          <a href="#setting" class="block px-4 py-2 hover:bg-blue-50 transition-colors">설정</a>
+          <a href="#profile" class="block px-4 py-2 hover:bg-blue-50 transition-colors">프로필</a>
+          <button id="logout" class="block w-full text-left px-4 py-2 hover:bg-blue-50 transition-colors text-red-600 font-semibold">로그아웃</button>
         </div>
-    </header>
-
-    <!-- 렐카이브 로그아웃 확인창 -->
-    <div id="logout-alert-overlay">
-     <div id="logout-alert">
-       <p class = "text-2xl mb-4"> <strong> 로그아웃하시겠습니까? </strong> </p>
-
-       <button id="logoutBtn" class="border border-black text-black bg-white px-4 py-2 rounded hover:bg-gray-100 transition-colors duration-200 text-sm">
-       로그아웃
-       </button>
-       <button id="backToMain" class="bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200 text-sm"> 메인으로 돌아가기 </button>
       </div>
     </div>
+  </header>
 
-    <!-- 메인 타이틀 -->
-    <div class="text-center mt-10">
-        <h1 class="text-4xl font-bold text-blue-800">렐름글판</h1>
+  <!-- 로그아웃 확인창 -->
+  <div id="logout-alert-overlay" class="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center hidden z-50">
+    <div id="logout-alert" class="bg-white p-10 rounded-xl shadow-xl max-w-sm text-center">
+      <p class="text-2xl font-bold text-blue-800 mb-6">로그아웃하시겠습니까?</p>
+
+      <button id="logoutBtn" 
+        class="border border-black text-black bg-white px-6 py-2 rounded hover:bg-gray-100 transition-colors duration-200 text-sm font-medium mr-4">
+        로그아웃
+      </button>
+      <button id="backToMain" 
+        class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors duration-200 text-sm font-medium">
+        메인으로 돌아가기
+      </button>
     </div>
+  </div>
 
-    <!-- 제목 입력 블록 --> 
-    <div id="title-block" class="max-w-xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-        <input
-            type="text"
-            id="titleInput"
-            placeholder="제목을 입력해주세요"
-            class="w-full mb-2 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-        />
-    </div>
+  <!-- 메인 타이틀 -->
+  <div class="text-center mt-12">
+    <h1 class="text-4xl font-extrabold text-blue-900 tracking-wide">Realm Archive</h1>
+  </div>
 
-    <!-- 글 작성 블록 -->
-    <form id="story-form" class="max-w-xl mx-auto mt-4 p-6 bg-white rounded-lg shadow-md hidden">
-        <textarea
-            id="bodyInput"
-            cols="30"
-            rows="10"
-            placeholder="글을 입력해주세요"
-            class="w-full mb-4 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none"
-        ></textarea>
-        <button
-            type="submit"
-            id="getStoryButton"
-            class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition-colors duration-300"
-        > Upload
-        </button>
+  <!-- 제목 입력 블록 -->
+  <div id="title-block" class="max-w-xl mx-auto mt-12 p-6 bg-white rounded-xl shadow-md">
+    <input
+      type="text"
+      id="titleInput"
+      placeholder="제목을 입력해주세요"
+      class="w-full mb-3 px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-400 transition"
+    />
+  </div>
+
+  <!-- 글 작성 블록 -->
+  <form id="story-form" class="max-w-xl mx-auto mt-5 p-6 bg-white rounded-xl shadow-md hidden">
+    <textarea
+      id="bodyInput"
+      cols="30"
+      rows="10"
+      placeholder="글을 입력해주세요"
+      class="w-full mb-5 px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-400 resize-none transition"
+    ></textarea>
+    <button
+      type="submit"
+      id="getStoryButton"
+      class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-800 transition-colors duration-300 font-semibold"
+    >
+      Upload
+    </button>
+  </form>
+
+  <!-- 검색 및 정렬 기능 -->
+  <div class="max-w-xl mx-auto mt-7 flex gap-3 items-center">
+    <form id="search-form" class="flex-grow flex items-center gap-3 bg-white p-5 rounded-xl shadow-md">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="검색어를 입력해주세요"
+        class="flex-grow px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-400 transition"
+      />
+      <button
+        type="submit"
+        id="searchStoryButton"
+        class="bg-blue-600 text-white px-7 py-3 rounded-lg hover:bg-blue-800 transition-colors duration-300 font-semibold"
+      >
+        검색
+      </button>
     </form>
 
-    <!-- 검색 및 정렬 기능 -->
-    <div class="max-w-xl mx-auto mt-6 flex gap-2 items-center">
-        <form id="search-form" class="flex-grow flex items-center gap-2 bg-white p-4 rounded-lg shadow-md">
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="검색어를 입력해주세요"
-                class="flex-grow px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-            <button
-                type="submit"
-                id="searchStoryButton"
-                class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition-colors duration-300"
-            >검색
-            </button>
-        </form>
+    <select
+      id="sortSelect"
+      class="px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-400 bg-white shadow-md transition"
+    >
+      <option value="newest">최신순</option>
+      <option value="oldest">오래된순</option>
+    </select>
+  </div>
 
-        <select
-            id="sortSelect"
-            class="px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white shadow-md"
-        >
-            <option value="newest">최신순 </option>
-            <option value="oldest">오래된순</option>
-        </select>
-    </div>
+  <!-- 게시글 렌더링 영역 -->
+  <div id="archiveContainer" class="max-w-3xl mx-auto mt-12 flex flex-col gap-6 px-5"></div>
 
-    <!-- 게시글 렌더링 영역 -->
-    <div id="archiveContainer" class="max-w-3xl mx-auto mt-10 flex flex-col gap-4 px-4"></div>
-    
-    <!-- 날짜 display용으로 변환-->
-    <script src="JS/date.js"></script>
-    <!-- 글 게시 -->
-    <script src="JS/pushform.js"></script>
-    <script src="JS/writing_story_from_hidden.js"></script>
-    <!-- 검색 -->
-    <script src="JS/search.js"></script>
-    <!-- 로그인 + 로그아웃 -->
-    <script type="module" src="JS/afterLogin.js"></script>
-    <script type="module" src="JS/logout.js"></script>
+  <!-- 날짜 display용으로 변환-->
+  <script src="JS/date.js"></script>
+  <!-- 글 게시 -->
+  <script src="JS/pushform.js"></script>
+  <script src="JS/writing_story_from_hidden.js"></script>
+  <!-- 검색 -->
+  <script src="JS/search.js"></script>
+  <!-- 로그인 + 로그아웃 -->
+  <script type="module" src="JS/afterLogin.js"></script>
+  <script type="module" src="JS/logout.js"></script>
+
 </body>
 </html>

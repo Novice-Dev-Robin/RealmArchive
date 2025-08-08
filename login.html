@@ -3,12 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <title>렐카이브 구글 로그인</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h2>구글 로그인</h2>
-  <button id="googleLoginBtn">구글 계정으로 로그인하기</button>
-  <p id="message"></p>
+<body class="bg-gradient-to-b from-blue-100 to-white flex items-center justify-center min-h-screen font-sans">
 
-  <script type="module" src="JS/firebase_authentication.js"></script>
+  <!-- 카드 -->
+  <div class="bg-white shadow-lg rounded-xl p-10 w-full max-w-md text-center border border-blue-200">
+    <!-- 제목 -->
+    <h2 class="text-3xl font-bold text-blue-600 mb-6">렐카이브</h2>
+    <p class="text-gray-600 mb-8">구글 계정으로 간편하게 로그인하세요</p>
+
+    <!-- 구글 로그인 버튼 -->
+    <button id="googleLoginBtn" 
+      class="flex items-center justify-center gap-3 w-full py-3 bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+      <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-6 h-6">
+      <span class="text-gray-700 font-medium">Google 계정으로 로그인</span>
+    </button>
+
+    <!-- 메시지 -->
+    <p id="message" class="mt-6 text-sm text-gray-500"></p>
+  </div>
+
+  <script type="module" src="JS/login.js"></script>
 </body>
 </html>
