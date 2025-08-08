@@ -1,74 +1,80 @@
-// https://github.com/Novice-Dev-Robin/RealmArchive.git
+import { dateString, formatForDisplay } from "./date.js"; // 날짜 변환 함수 및 변수 import
+import { db, auth, doc, setDoc, getDoc, addDoc, getDocs, deleteDoc, collection, onAuthStateChanged } from "./firebase_authentication.js";
 
 const storyForm = document.querySelector("#story-form"); // form에 eventListener 추가
 const title_text = document.querySelector("#titleInput"); // 제목 입력 창
 const textarea = document.querySelector("#bodyInput"); // 30 * 10 크기의 텍스트 입력 창
-
 const container = document.querySelector("#archiveContainer"); // HTML에 글을 표현할 div 저장소
 
-let storyArray = []; // 글 객체를 저장할 배열
-const ARCHIVE_KEYS = "archives"; // string 고정 - 타이핑 실수하지 않게 
+// 카드 하나 만드는 함수 (동기 함수로 변경)
+function createCardElement(story) { // 작성된 글 클릭 시 새 창 - detail.html로 연결
+    const card = document.createElement("div");
+    card.className = "bg-white cursor-pointer p-4 border border-gray-300 rounded shadow hover:shadow-lg transition";
 
+    const titleElement = document.createElement("h3");
+    titleElement.innerText = story.title;
+    titleElement.className = "text-lg font-semibold text-black-600";
 
-function renderTitleCards(story_Obj) { // 작성된 글 클릭 시 새 창 - detail.html로 연결
-  const card = document.createElement("div");
-  card.className = "bg-white cursor-pointer p-4 border border-gray-300 rounded shadow hover:shadow-lg transition";
+    const dateElement = document.createElement("span");
+    dateElement.textContent = story.date;
+    dateElement.style.fontSize = "12px";
+    dateElement.style.color = "grey";
+    
+    card.appendChild(titleElement);
+    card.appendChild(dateElement);
 
-  const titleElement = document.createElement("h3");
-  titleElement.innerText = story_Obj.title;
-  titleElement.className = "text-lg font-semibold text-black-600";
+    // 클릭 시 detail.html로 이동
+    card.addEventListener("click", () => {
+        // Firebase 문서 고유 키 사용
+        window.location.href = `detail.html?id=${story.firestoreID}`;
+    });
 
-  const dateElement = document.createElement("span");
-  dateElement.textContent = story_Obj.date;
-  dateElement.style.fontSize = "12px";
-  dateElement.style.color = "grey";
-  
-  card.appendChild(titleElement);
-  card.appendChild(dateElement);
+    return card;
+}
 
-  // 클릭 시 detail.html로 이동
-  card.addEventListener("click", () => {
-    window.location.href = `detail.html?id=${story_Obj.id}`;
+// 여러 문서 받아서 한꺼번에 렌더링하는 함수
+async function renderAllStories() {
+    container.innerText = ""; // 기존 내용 초기화
+
+    const querySnapshot = await getDocs(collection(db, "posts"));
+    const fragment = document.createDocumentFragment();
+
+    querySnapshot.forEach(doc => {
+    const story = {
+      firestoreID: doc.id,
+      ...doc.data()
+    };
+
+    const card = createCardElement(story);
+    fragment.appendChild(card);
   });
 
-  container.appendChild(card);
-}
-
-// ------------------------------ 글 저장 및 삭제 ------------------------------
-function saveStories() { // 글 저장
-    localStorage.setItem(ARCHIVE_KEYS, JSON.stringify(storyArray));
-}
-
-function deleteStory(event) {
-    const target = event.target.parentElement;
-    const targetID = parseInt(target.id);
-    target.remove(); // div 제거
-    storyArray = storyArray.filter((story) => story.id !== targetID); // 배열을 필터링해서 targetID가 아닌 것만 남게끔
-    saveStories();
+  container.appendChild(fragment);
 }
 
 // ------------------------------ 게시글 추가 ---------------------------------
-function onInputSubmit(event) { // form에 event 켜지면 실행
+async function onInputSubmit(event) { // form에 event 켜지면 실행
     event.preventDefault();
 
-    const title = title_text.value;
+    const title = title_text.value; // 제목
     title_text.value = "";
-    const text = textarea.value;
+    const text = textarea.value; // 본문
     textarea.value = "";
 
-    const story_Obj = {
-        id : Date.now(), // 고유 ID - 현재 날짜로 설정
+    const collection_posts = collection(db, "posts"); // 컬렉션 경로
+    const newStory = await addDoc(collection_posts, {
+        id : Date.now(), // 글 고유 ID - 현재 날짜로 설정
+        uid: auth.currentUser.uid, // 현재 로그인한 사용자 UID 추가
         title : title, // 제목
         text : text, // 본문
         date : formatForDisplay(dateString.date), // 현재 날짜
         likes : 0, // 좋아요 수
-        comments : [] // 댓글 배열 - 객체를 push
-    };
+        comments : [] // 댓글 배열 - 객체 push
+    });
 
     if(title !== "" && text !== "") { // 공란 걸러내기
-        storyArray.push(story_Obj);
-        renderTitleCards(story_Obj);
-        saveStories();
+        renderAllStories();
+        console.log(`✅ 게시글 ${newStory.id} 저장 완료`);
     }
 }
 
@@ -76,11 +82,16 @@ storyForm.addEventListener("submit", onInputSubmit); // 게시글 추가 이벤�
 
 // --------------------------------------- 정렬 과정 -------------------------------------------------
 const sortSelect = document.querySelector("#sortSelect"); // 정렬
-function RENDER_STORIES_BY_DATE(order) {
+async function RENDER_STORIES_BY_DATE(order) {
     container.innerText = ""; // 기존 글 제거
-    
-    const sortedArray = storyArray; // 원본 배열 복사
-    sortedArray.sort((a,b) => {
+    const querySnapshot = await getDocs(collection(db, "posts"));
+    const stories = [];
+
+    querySnapshot.forEach((doc) => stories.push({
+        firestoreID : doc.id, 
+        ...doc.data()
+    }));
+    stories.sort((a,b) => {
             if(order === "newest") { // 최신순
                 return new Date(b.date) - new Date(a.date);
             }
@@ -89,18 +100,16 @@ function RENDER_STORIES_BY_DATE(order) {
             }
         }
     );    
-    sortedArray.forEach(renderTitleCards);
+    for (const story of stories) {
+        await renderAllStories();
+    }
 }
 sortSelect.addEventListener("change", (event) => {
     RENDER_STORIES_BY_DATE(event.target.value); // 
 });
 
-// --------------------------------------- localStorage에 저장 -------------------------------------------------
-const savedStories = localStorage.getItem(ARCHIVE_KEYS); // Archive에 저장
-if(savedStories != null) {
-    const parsedSavedStories = JSON.parse(savedStories);
-    storyArray = parsedSavedStories; // storyArray에 임시 저장
+window.addEventListener("load", () => {
+    RENDER_STORIES_BY_DATE("newest"); // 기본 정렬로 렌더링
+});
 
-    parsedSavedStories.sort((a,b) => new Date(b.date) - new Date(a.date));
-    parsedSavedStories.forEach(renderTitleCards); // HTML에 표현
-}
+export { storyForm };

@@ -1,3 +1,6 @@
+// 글 수정 및 삭제 기능 추가해야 함.
+const admin_uids= ["4lVWdflkfPQpurDgCXiNjvEHdOU2", "aMMhukeqKGd2JnjvSA1P3HFRgzf1"]; // 효빈, 준호
+
 const params = new URLSearchParams(window.location.search);
 const storyId = parseInt(params.get("id")); 
 
