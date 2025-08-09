@@ -16,4 +16,4 @@ const dateString = { // 실제 날짜 데이터
     date : new Date().toISOString()
 };
 
-export { formatForDisplay, dateString }
+export { formatForDisplay, dateString };

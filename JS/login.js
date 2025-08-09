@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
           window.location.href = "./index.html";
         } else {
           // GitHub Pages 등 배포 환경
-          window.location.href = "./RealmArchive/index.html";
+          window.location.href = "../index.html";
         }
       } catch (error) {
         message.textContent = `구글 로그인 실패: ${error.message}`;
