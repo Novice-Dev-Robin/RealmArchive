@@ -330,46 +330,6 @@ body {
 }
 
 
-
-
-/* 로그인 창 */
-/* 팝업되면 뒤에 반투명해지는 배경 */
-.login-popup {
-  display: none; /* 처음엔 숨김 */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw; /* 화면 크기 비례 */
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-/* 팝업 박스 */
-.login-popup-content {
-  display: none; /* 처음엔 숨김 */
-  background-color: white;
-  padding: 30px;
-  border-radius: 10px;
-  width: 500px;
-  flex-direction: column;
-  gap: 10px;
-  font-family: '양진체';
-  animation: fadeIn 0.3s ease-out;
-}
-
-.login-popup-content button {
-  font-size: 24px;
-  font-family: '양진체';
-  text-align: center;
-  padding: 10px;   /* 위아래 10px 공간 주기 */
-  box-sizing: border-box; /* 패딩이 크기 안에 포함되도록 */
-  cursor: pointer;       /* 마우스 올리면 손가락 커서 */
-}
-
-
 /* 닫기 버튼 */
 .close-btn {
   align-self: flex-end;

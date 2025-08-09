@@ -4,13 +4,15 @@ import { auth, db, onAuthStateChanged, doc, getDoc, setDoc} from '../../../JS/fi
 onAuthStateChanged(auth, async (user) => {
   if (user) {
 
-    console.log("로그인 유저:", user.displayName);
 
     document.getElementById("login-alert-overlay").classList.add("hidden");
     document.getElementById("login-alert").classList.add("hidden");
 
     const userDocRef = doc(db, "users", user.uid); // 유저 아이디 참조
-    const userDocSnap = await getDoc(userDocRef); // 유저 아이디 가져오기   
+    const userDocSnap = await getDoc(userDocRef); // 유저 아이디 가져오기
+    const userData = userDocSnap.data();
+    
+    console.log("로그인한 렐카이브 아이디 : " + userData.name);
 
     if (!userDocSnap.exists()) { // 유저 아이디가 없다면?
       console.log("mokokoWorld 최초 로그인 유저네요.");
@@ -24,7 +26,7 @@ onAuthStateChanged(auth, async (user) => {
 
 
     } else {
-      console.log("mokokoWorld 데이터:", statSnap.data());
+      console.log("mokokoWorld 데이터:", userData);
     }
   } else {
     document.getElementById("login-alert-overlay").classList.remove("hidden");
