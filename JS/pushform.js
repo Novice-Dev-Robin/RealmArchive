@@ -69,7 +69,7 @@ async function onInputSubmit(event) { // form에 event 켜지면 실행
         text : text, // 본문
         date : formatForDisplay(dateString.date), // 현재 날짜
         likes : 0, // 좋아요 수
-        comments : [] // 댓글 배열 - 객체 push
+        comments : [], // 댓글 배열 - 객체 push
     });
 
     if(title !== "" && text !== "") { // 공란 걸러내기
@@ -93,10 +93,10 @@ async function RENDER_STORIES_BY_DATE(order) {
     }));
     stories.sort((a,b) => {
             if(order === "newest") { // 최신순
-                return new Date(b.date) - new Date(a.date);
+                return b.id - a.id;
             }
             else { // 오래된순
-                return new Date(a.date) - new Date(b.date);
+                return a.id - b.id;
             }
         }
     );    
