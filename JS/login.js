@@ -32,8 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
           // 로컬 개발 환경 (Live Server)
           window.location.href = "./index.html";
         } else {
-          // GitHub Pages 등 배포 환경
-          window.location.href = "../index.html";
+          // GitHub Pages 배포 환경일 때
+          window.location.href = "https://novice-dev-robin.github.io/RealmArchive/index.html";
         }
       } catch (error) {
         message.textContent = `구글 로그인 실패: ${error.message}`;
