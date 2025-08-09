@@ -1,5 +1,5 @@
 import { dateString, formatForDisplay } from "./date.js"; // 날짜 변환 함수 및 변수 import
-import { db, auth, doc, setDoc, getDoc, addDoc, getDocs, deleteDoc, collection, onAuthStateChanged } from "./firebase_authentication.js";
+import { db, auth, addDoc, getDocs, collection } from "./firebase_authentication.js";
 
 const storyForm = document.querySelector("#story-form"); // form에 eventListener 추가
 const title_text = document.querySelector("#titleInput"); // 제목 입력 창
@@ -9,7 +9,7 @@ const container = document.querySelector("#archiveContainer"); // HTML에 글을
 // 카드 하나 만드는 함수 (동기 함수로 변경)
 function createCardElement(story) { // 작성된 글 클릭 시 새 창 - detail.html로 연결
     const card = document.createElement("div");
-    card.className = "bg-white cursor-pointer p-4 border border-gray-300 rounded shadow hover:shadow-lg transition";
+    card.className = "bg-white cursor-pointer p-4 border border-gray-300 rounded-xl shadow hover:shadow-lg transition";
 
     const titleElement = document.createElement("h3");
     titleElement.innerText = story.title;
@@ -30,6 +30,19 @@ function createCardElement(story) { // 작성된 글 클릭 시 새 창 - detail
     });
 
     return card;
+}
+
+// 배열에서 렌더링하는 함수 - 정렬 후
+function render_after_sorting(stories) {
+    container.innerText = "";
+    const fragment = document.createDocumentFragment();
+
+    stories.forEach(story => {
+        const card = createCardElement(story);
+        fragment.appendChild(card);
+    });
+
+    container.appendChild(fragment);
 }
 
 // 여러 문서 받아서 한꺼번에 렌더링하는 함수
@@ -91,7 +104,7 @@ async function RENDER_STORIES_BY_DATE(order) {
         firestoreID : doc.id, 
         ...doc.data()
     }));
-    stories.sort((a,b) => {
+    stories.sort((a,b) => { // 미완
             if(order === "newest") { // 최신순
                 return b.id - a.id;
             }
@@ -100,9 +113,7 @@ async function RENDER_STORIES_BY_DATE(order) {
             }
         }
     );    
-    for (const story of stories) {
-        await renderAllStories();
-    }
+    render_after_sorting(stories);
 }
 sortSelect.addEventListener("change", (event) => {
     RENDER_STORIES_BY_DATE(event.target.value); // 
