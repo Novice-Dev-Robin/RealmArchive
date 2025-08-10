@@ -2,7 +2,6 @@ const userIcon = document.getElementById("user-icon");
 const mokokoCustomizingSetting = document.getElementById("mokoko-customizing-overlay");
 
 userIcon.addEventListener("click", () =>{
-  console.log("click");
   mokokoCustomizingSetting.classList.toggle("hidden");
 });
 
@@ -62,4 +61,9 @@ submitBtn.addEventListener("click", () => {
 
   // 추가적으로 이름을 저장하거나 알림 띄우기 가능
   console.log("저장된 이름:", customizationData.mokokoName);
+});
+
+
+document.getElementById("customization-close").addEventListener("click", () =>{
+  mokokoCustomizingSetting.classList.toggle("hidden");
 });

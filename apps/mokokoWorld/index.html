@@ -24,7 +24,10 @@
 
   <!-- 모코코 커스터마이징 팝업 ------------------------------------------------------------------------------------>
   <div id="mokoko-customizing-overlay">
+    
     <div class="customization-ui">
+    <span id="customization-close" class="close-btn">&times;</span> <!-- 닫기 버튼 -->
+
       <!-- 왼쪽: 미리보기 -->
       <div class="preview-container">
         <div class="mokoko-wrapper">
@@ -65,9 +68,19 @@
 
       <!-- 오른쪽: 커스터마이징 입력 UI -->
       <div class="controls-container">
-        <label for="mokoko-name-input">모코코 이름</label>
+        <h3 class="controls-title">모코코 이름</h3>
         <input type="text" id="mokoko-name-input" placeholder="여러분의 모코코 이름을 정해주세요!" />
+      
+        <h3 class="controls-title">모코코 태그</h3>
+        <div class="tag-container">
+          <span class="tag">귀요미</span>
+          <span class="tag">망고</span>
+          <span class="tag">악질</span>
+          <span class="tag">:3</span>
+          <span class="tag">렐름</span>
+        </div>
 
+        <h3 class="controls-title"></h3>
         <div class="color-picker-row">
           <div class="color-picker">
             <label for="body-switch">몸</label>
@@ -84,14 +97,14 @@
 
           <div class="color-picker">
             <label for="base-switch">테</label>
-            <input type="color" id="base-switch" value="black" />
+            <input type="color" id="base-switch" value="#000000" />
           </div>
         </div>
 
 
+
         <button id="custom-save-button">로 정했다!</button>
       </div>
-      <span class="close-btn">&times;</span> <!-- 닫기 버튼 -->
     </div>
     
   </div>
