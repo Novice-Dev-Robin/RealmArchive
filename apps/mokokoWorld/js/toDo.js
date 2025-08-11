@@ -1,6 +1,6 @@
 const toDoIcon = document.getElementById('toDo-icon');
 const todoPopup = document.getElementById('todo-popup');
-const closeTodoBtn = document.querySelector('.close-todo');
+const closeTodoBtn = document.getElementById('todo-close');
 const todoForm = document.getElementById('todo-form');
 const todoInput = document.getElementById('todo-input');
 const todoList = document.getElementById('todo-list');
