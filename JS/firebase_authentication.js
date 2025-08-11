@@ -16,7 +16,10 @@ import { // 계정 저장
   getDoc,
   getDocs,
   addDoc,
-  deleteDoc
+  updateDoc,
+  deleteDoc,
+  increment,
+  onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -40,4 +43,6 @@ window.auth = auth;
 
 const provider = new GoogleAuthProvider();
 
-export { db, auth, provider, collection, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, onAuthStateChanged, GoogleAuthProvider, signInWithPopup};
+export { db, auth, provider, collection, doc, setDoc, getDoc, getDocs, 
+  addDoc, updateDoc, deleteDoc, increment, onSnapshot, onAuthStateChanged,
+  GoogleAuthProvider, signInWithPopup};

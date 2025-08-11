@@ -81,8 +81,7 @@ async function onInputSubmit(event) { // form에 event 켜지면 실행
         title : title, // 제목
         text : text, // 본문
         date : formatForDisplay(dateString.date), // 현재 날짜
-        likes : 0, // 좋아요 수
-        comments : [], // 댓글 배열 - 객체 push
+        likes : 0 // 좋아요 수
     });
 
     if(title !== "" && text !== "") { // 공란 걸러내기
