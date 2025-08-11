@@ -4,7 +4,7 @@ const menu = document.getElementById("menu-icon");
 menu.addEventListener("click", () => {
 
   document.getElementById("user-icon").classList.toggle("slideDown");
-  
+  document.getElementById("farm-icon").classList.toggle("slideDown");
   document.getElementById("toDo-icon").classList.toggle("slideDown");
 });
 

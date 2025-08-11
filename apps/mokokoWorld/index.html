@@ -23,8 +23,11 @@
 
 
   <!-- 모코코 커스터마이징 팝업 ------------------------------------------------------------------------------------>
-  <div id="mokoko-customizing-overlay">
+  <div id="mokoko-customizing-overlay" class = "hidden">
+    
     <div class="customization-ui">
+    <span id="customization-close" class="close-btn">&times;</span> <!-- 닫기 버튼 -->
+
       <!-- 왼쪽: 미리보기 -->
       <div class="preview-container">
         <div class="mokoko-wrapper">
@@ -65,9 +68,13 @@
 
       <!-- 오른쪽: 커스터마이징 입력 UI -->
       <div class="controls-container">
-        <label for="mokoko-name-input">모코코 이름</label>
+        <h3 class="controls-title">모코코 이름</h3>
         <input type="text" id="mokoko-name-input" placeholder="여러분의 모코코 이름을 정해주세요!" />
+      
+        <h3 class="controls-title">모코코 칭호</h3>
+        <input type="text" id="mokoko-title-input" placeholder="여러분의 모코코 칭호를 정해주세요!" maxlength="5"/>
 
+        <h3 class="controls-title"></h3>
         <div class="color-picker-row">
           <div class="color-picker">
             <label for="body-switch">몸</label>
@@ -84,14 +91,14 @@
 
           <div class="color-picker">
             <label for="base-switch">테</label>
-            <input type="color" id="base-switch" value="black" />
+            <input type="color" id="base-switch" value="#000000" />
           </div>
         </div>
 
 
+
         <button id="custom-save-button">로 정했다!</button>
       </div>
-      <span class="close-btn">&times;</span> <!-- 닫기 버튼 -->
     </div>
     
   </div>
@@ -104,10 +111,13 @@
     <span id="date"></span>
     <span id="time">00:00:00</span>
   </div>
+
+  <!--메뉴----------------------------------------------------------------------------------------------------------->
   <div id="menu" class="menu">
     <img id="menu-icon" src="assets/menu2.png" alt="메뉴" class="menu-icon"/>
-    <img id="user-icon" src="assets/user.png" alt="로그인" class="user-icon"/>
-    <img id="toDo-icon" src="assets/toDo.png" alt="설정" class="toDo-icon"/>
+    <img id="user-icon" src="assets/user.png" alt="모코코 커마" class="user-icon"/>
+    <img id="farm-icon" src="assets/farm.png" alt="모코코 농장" class="farm-icon"/>
+    <img id="toDo-icon" src="assets/toDo.png" alt="투두리스트" class="toDo-icon"/>
   </div>
   
   <!--날씨---------------------------------------------------------------------------------------------------------->
@@ -126,15 +136,8 @@
     </form>
   </div>
 
-  <!--모코코 정보 표시----------------------------------------------------------------------------------------------->
-  <div id="mokoko-name" class="mokoko-name">
-    <span class="level">Lv.1</span>
-    <span class="username">모코코</span>
-  </div>
-  <!---------------------------------------------------------------------------------------------------------------->
-
   <!--스탯창------------------------------------------------------------------------------------------------->
-  <div class="stat-wrapper">
+  <div class="stat-wrapper hidden">
     <!-- 화살표가 들어가는 둥근 네모 박스 -->
     <div class="arrow-box" id="stat-toggle">
       <svg class="toggle-arrow" width="24" height="24" viewBox="0 0 24 24" fill="#FF9E6D" xmlns="http://www.w3.org/2000/svg">
@@ -157,7 +160,7 @@
         <div class="bar int" style="width: 80%;"></div>
       </div>
     </div>
-</div>
+  </div>
 <!--------------------------------------------------------------------------------------------------------------->
 
 <!--투두 리스트 팝업----------------------------------------------------------------------------------------------->
@@ -177,7 +180,7 @@
   
   <!--렐카이브 로그인 우선 확인-->
   <script type="module" src="js/auth.js"></script>
-  <script src="js/mokokoSetting/customizing.js"></script>
+  <script type="module" src="js/mokokoSetting/customizing.js"></script>
   <script src = "js/menu.js"></script>
   <script src="js/mokokoAction.js"></script>
   <script src="js/time.js"></script>
