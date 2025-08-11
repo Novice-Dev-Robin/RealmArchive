@@ -8,11 +8,25 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById("login-alert-overlay").classList.add("hidden");
     document.getElementById("login-alert").classList.add("hidden");
 
+    // 모코코 올라오는 애니메이션
+    setTimeout(() => {
+      const mokokoMain = document.getElementById("mokoko-main");
+      mokokoMain.classList.add("slide-up-mk");
+
+      // 애니메이션 끝난 후 slide-up-mk 제거
+      mokokoMain.addEventListener("animationend", () => {
+        mokokoMain.classList.remove("slide-up-mk");
+      }, { once: true });
+    }, 500);
+
+    
+
     const userDocRef = doc(db, "users", user.uid); // 유저 아이디 참조
     const userDocSnap = await getDoc(userDocRef); // 유저 아이디 가져오기
     const userData = userDocSnap.data();
     
     console.log("로그인한 렐카이브 아이디 : " + userData.name);
+
 
     if (!userDocSnap.exists()) { // 유저 아이디가 없다면?
       console.log("mokokoWorld 최초 로그인 유저네요.");

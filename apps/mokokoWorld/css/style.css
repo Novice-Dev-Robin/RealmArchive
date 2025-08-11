@@ -88,10 +88,13 @@ body {
   bottom: -290px; /* 화면 아래 위치 */
   position: absolute; /* 절대 위치로 설정 */
   transition: left 0.2s ease, top 0.2s ease, transform 0.2s ease;
+
+  /*히트박스 확인용 코드*/
+  /* outline: 2px solid red; */
 }
 
 /* CSS 가상 클래스, 요소 위에 마우스 올리면...*/
-#mokoko:hover {
+#mokoko-main:hover {
   transform: translateY(-80px); /* 살짝 띄움 */
 }
 /*---------------------------------------------------------------------------------------------------------------*/
