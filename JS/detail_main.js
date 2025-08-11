@@ -71,3 +71,5 @@ getItemFromDB([]).then(stories => {
     }
   });
 });
+
+export { getItemFromDB };
