@@ -13,7 +13,6 @@
     font-style: normal;
 }
 
-
 body {
   margin: 0;
   padding: 0;
@@ -26,9 +25,6 @@ body {
 }
 
 
-.hidden {
-  display: none;
-}
 
 /* 렐카이브 로그인 확인 팝업 */
 /* style.css에 추가 */
@@ -85,28 +81,20 @@ body {
 }
 
 
-/* 모코코 */
-.mokoko {
+/* 모코코 메인 ---------------------------------------------------------------------------------------------------*/
+#mokoko-main {
   width: 644px;
   height: 644px;
   bottom: -290px; /* 화면 아래 위치 */
   position: absolute; /* 절대 위치로 설정 */
-  background-image: url('../assets/mokoko_sprite.png');
-  background-size: 200% auto; /* 가로에 프레임 2개라면 */
-  background-position: left top;
   transition: left 0.2s ease, top 0.2s ease, transform 0.2s ease;
 }
 
 /* CSS 가상 클래스, 요소 위에 마우스 올리면...*/
-.mokoko:hover {
+#mokoko:hover {
   transform: translateY(-80px); /* 살짝 띄움 */
 }
-
-/* 클릭 시 오른쪽 프레임으로 변경하는 클래스 */
-.mokoko.clicked {
-  background-position: right top; 
-}
-
+/*---------------------------------------------------------------------------------------------------------------*/
 
 /* 메뉴 */
 .menu-icon {
@@ -238,21 +226,6 @@ body {
 
 
 
-/* 메뉴 아이콘 애니메이션 */
-@keyframes slideDown {
-  from {
-    transform: translateY(-30%); /*어디서부터 날라오는가*/
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-.slideDown {
-  visibility: visible;
-  animation: slideDown 0.1s forwards;
-}
-
-
 /* 시계 */
 .clock {
   position: absolute;
@@ -340,24 +313,6 @@ body {
 }
 
 
-/* 닫기 버튼 */
-.close-btn {
-  align-self: flex-end;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-/* 간단한 등장 애니메이션 */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
 
 
 
@@ -374,13 +329,3 @@ body {
   flex-direction: column; /* 세로 정렬 */
   align-items: center;     /* 중앙 정렬 */
 } 
-
-
-
-
-
-.playAsset{
-  display: none;
-  width: 90px;
-  height: 90px;
-}

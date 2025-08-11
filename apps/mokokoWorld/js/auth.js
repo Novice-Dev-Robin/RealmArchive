@@ -4,7 +4,7 @@ import { auth, db, onAuthStateChanged, doc, getDoc, setDoc} from '../../../JS/fi
 onAuthStateChanged(auth, async (user) => {
   if (user) {
 
-
+    // 로그인 했으면 팝업 hidden
     document.getElementById("login-alert-overlay").classList.add("hidden");
     document.getElementById("login-alert").classList.add("hidden");
 
@@ -22,13 +22,13 @@ onAuthStateChanged(auth, async (user) => {
       const statSnap = await getDoc(mokokoStatRef); // 유저 스탯 가져오기
 
 
-
-
-
     } else {
+      // 유저 아이디 존재한다면..
       console.log("mokokoWorld 데이터:", userData);
     }
-  } else {
+  } 
+  
+  else { // 로그인 안되어 있으면 팝업 계속..
     document.getElementById("login-alert-overlay").classList.remove("hidden");
   }
 });
