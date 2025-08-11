@@ -173,6 +173,7 @@ submitBtn.addEventListener("click", async () => {
 
 
 
+
 document.getElementById("customization-close").addEventListener("click", () => {
 
 
