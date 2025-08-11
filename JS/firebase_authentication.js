@@ -1,6 +1,7 @@
 // Firebase에서 제공하는 인증 서비스 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 import { 
   getAuth, // 권한받기
@@ -37,12 +38,18 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);  // Firestore 초기화 추가
 const auth = getAuth(app);
 
+
 // 전역에서 접근 가능하도록
 window.db = db;
 window.auth = auth;
 
+
+// 앱 초기화 이후
+const storage = getStorage();
 const provider = new GoogleAuthProvider();
 
 export { db, auth, provider, collection, doc, setDoc, getDoc, getDocs, 
   addDoc, updateDoc, deleteDoc, increment, onSnapshot, onAuthStateChanged,
   GoogleAuthProvider, signInWithPopup};
+
+export { storage, ref, uploadBytes, getDownloadURL };
