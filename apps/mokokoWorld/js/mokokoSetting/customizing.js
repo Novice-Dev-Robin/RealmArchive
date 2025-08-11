@@ -58,6 +58,7 @@ const mokokoPreview = document.getElementById("mokoko-preview");
 
 function mokokoMainSlideUp(){
   setTimeout(()=>{
+    mokoko.classList.remove("slide-down-mk");
     mokoko.classList.remove("slide-up-mk");
     void mokoko.offsetWidth; // 리플로우 강제 발생
     mokoko.classList.add("slide-up-mk");
@@ -105,8 +106,6 @@ userIcon.addEventListener("click", async () => {
     }
 
     mokokoCustomizingSetting.classList.toggle("hidden"); // 팝업 히든 클래스 토글
-
-
     mokokoPreview.style.visibility = "hidden";   // 숨기기
 
     // 만약 slide-up 클래스가 있으면 제거 (재실행 위해)
@@ -118,7 +117,7 @@ userIcon.addEventListener("click", async () => {
     setTimeout(() => {
       mokokoPreview.style.visibility = "visible"; // 보이게 하고
       mokokoPreview.classList.add("slide-up-mk");    // 애니메이션 클래스 추가
-    }, 900);
+    }, 500);
 
 
   } catch (err) {
@@ -158,11 +157,9 @@ submitBtn.addEventListener("click", async () => {
     await setDoc(docRef, customizationData);
 
     console.log("커스터마이징 저장 완료");
-    mokokoCustomizingSetting.classList.toggle("hidden");
   } catch (err) {
     console.error("저장 실패:", err);
   }
-
 
   mokokoPreview.classList.add("slide-down-fast-mk");
 
