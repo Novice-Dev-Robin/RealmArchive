@@ -172,8 +172,6 @@ submitBtn.addEventListener("click", async () => {
 });
 
 
-
-
 document.getElementById("customization-close").addEventListener("click", () => {
 
 
@@ -194,3 +192,5 @@ document.getElementById("customization-close").addEventListener("click", () => {
 
   mokokoMainSlideUp();
 });
+
+// 25-08-12 01:06
