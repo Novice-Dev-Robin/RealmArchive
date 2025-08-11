@@ -59,71 +59,95 @@ const mokokoPreview = document.getElementById("mokoko-preview");
 function mokokoMainSlideUp(){
   setTimeout(()=>{
     mokoko.classList.remove("slide-down-mk");
-    mokoko.classList.remove("slide-up-mk");
     void mokoko.offsetWidth; // 리플로우 강제 발생
     mokoko.classList.add("slide-up-mk");
-  }, 100);
+  }, 250);
+
+  mokoko.addEventListener('animationend', () => {
+    mokoko.classList.remove("slide-up-mk"); 
+  }, { once: true });
 }
 
 
+// 유저 팝업 토글 확인
+let isUserIconPopupVisible = false;
 
-
-// 유저 아이콘 누르면 커마 정보 불러오기
+// 유저 아이콘 누르면 커마 정보 불러오기 및 토글
 userIcon.addEventListener("click", async () => {
-
-  mokoko.classList.add("slide-down-mk");
-
   const user = auth.currentUser;
   if (!user) {
     console.error("로그인 필요");
     return;
   }
 
-  try {
-    const docRef = doc(db, "users", user.uid, "mokoko", "customization");
-    const docSnap = await getDoc(docRef);
+  if (!isUserIconPopupVisible) {
+    // 팝업 열기 + 애니메이션
 
-    if (docSnap.exists()) {
-      savedCustomizationData = docSnap.data();  // 여기 저장
+    mokoko.classList.remove("slide-up-mk");
+    mokoko.classList.add("slide-down-mk");
 
-      // 각 입력창에 값 세팅
-      bodyColorInput.value = savedCustomizationData.bodyColor ?? DEFAULT_BODY_COLOR;
-      leafColorInput.value = savedCustomizationData.leafColor ?? DEFAULT_LEAF_COLOR;
-      tongueColorInput.value = savedCustomizationData.tongueColor ?? DEFAULT_TONGUE_COLOR;
-      bodyBaseColorInput.value = savedCustomizationData.baseColor ?? DEFAULT_BASE_COLOR;
-      nameBox.value = savedCustomizationData.mokokoName ?? "";
-      titleBox.value = savedCustomizationData.mokokoTitle ?? "";
+    try {
+      const docRef = doc(db, "users", user.uid, "mokoko", "customization");
+      const docSnap = await getDoc(docRef);
 
+      if (docSnap.exists()) {
+        savedCustomizationData = docSnap.data();  // 여기 저장
 
-    } else {
-      // 저장된 데이터 없으면 기본값 세팅
-      bodyColorInput.value = DEFAULT_BODY_COLOR;
-      leafColorInput.value = DEFAULT_LEAF_COLOR;
-      tongueColorInput.value = DEFAULT_TONGUE_COLOR;
-      bodyBaseColorInput.value = DEFAULT_BASE_COLOR;
-      nameBox.value = "";
-      titleBox.value = "";
+        // 각 입력창에 값 세팅
+        bodyColorInput.value = savedCustomizationData.bodyColor ?? DEFAULT_BODY_COLOR;
+        leafColorInput.value = savedCustomizationData.leafColor ?? DEFAULT_LEAF_COLOR;
+        tongueColorInput.value = savedCustomizationData.tongueColor ?? DEFAULT_TONGUE_COLOR;
+        bodyBaseColorInput.value = savedCustomizationData.baseColor ?? DEFAULT_BASE_COLOR;
+        nameBox.value = savedCustomizationData.mokokoName ?? "";
+        titleBox.value = savedCustomizationData.mokokoTitle ?? "";
+      } else {
+        // 저장된 데이터 없으면 기본값 세팅
+        bodyColorInput.value = DEFAULT_BODY_COLOR;
+        leafColorInput.value = DEFAULT_LEAF_COLOR;
+        tongueColorInput.value = DEFAULT_TONGUE_COLOR;
+        bodyBaseColorInput.value = DEFAULT_BASE_COLOR;
+        nameBox.value = "";
+        titleBox.value = "";
+      }
+
+      mokokoCustomizingSetting.classList.remove("hidden"); // 팝업 보이기
+      mokokoPreview.style.visibility = "hidden";   // 숨기기 토글
+
+      // 만약 slide-up 클래스가 있으면 제거 (재실행 위해)
+      mokokoPreview.classList.remove("slide-up-mk");
+
+      // 강제 리플로우(렌더링 강제 갱신)
+      void mokokoPreview.offsetWidth;
+
+      setTimeout(() => {
+        mokokoPreview.style.visibility = "visible"; // 보이게 하고
+        mokokoPreview.classList.add("slide-up-mk");    // 애니메이션 클래스 추가
+      }, 500);
+
+      isUserIconPopupVisible = true;
+
+    } catch (err) {
+      console.error("불러오기 실패:", err);
     }
 
-    mokokoCustomizingSetting.classList.toggle("hidden"); // 팝업 히든 클래스 토글
-    mokokoPreview.style.visibility = "hidden";   // 숨기기
+  } else {
+    // 팝업 닫기 + 애니메이션
+    
+    mokokoPreview.classList.add("slide-down-fast-mk");
 
-    // 만약 slide-up 클래스가 있으면 제거 (재실행 위해)
-    mokokoPreview.classList.remove("slide-up-mk");
-
-    // 강제 리플로우(렌더링 강제 갱신)
-    void mokokoPreview.offsetWidth;
+    mokokoMainSlideUp();
 
     setTimeout(() => {
-      mokokoPreview.style.visibility = "visible"; // 보이게 하고
-      mokokoPreview.classList.add("slide-up-mk");    // 애니메이션 클래스 추가
-    }, 500);
+      mokokoCustomizingSetting.classList.add("hidden"); // 팝업 숨기기
+      mokokoPreview.classList.remove("slide-down-fast-mk"); // 애니메이션 클래스 제거
+      
+    }, 300);
 
 
-  } catch (err) {
-    console.error("불러오기 실패:", err);
+    isUserIconPopupVisible = false;
   }
 });
+
 
 
 
@@ -168,9 +192,9 @@ submitBtn.addEventListener("click", async () => {
     mokokoPreview.classList.remove("slide-down-fast-mk"); // 클래스도 빼주기 -> 다음에 또 쓸 수 있게
   }, 300);
 
+  isUserIconPopupVisible = false;
   mokokoMainSlideUp();
 });
-
 
 
 document.getElementById("customization-close").addEventListener("click", () => {
@@ -191,5 +215,6 @@ document.getElementById("customization-close").addEventListener("click", () => {
     mokokoRightArmpit.setAttribute("fill", savedCustomizationData.baseColor);
   }, 300);
 
+  isUserIconPopupVisible = false;
   mokokoMainSlideUp();
 });
