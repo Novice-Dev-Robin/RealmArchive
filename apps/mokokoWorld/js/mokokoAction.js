@@ -28,6 +28,50 @@ function calPosition() {
 
 
 
+// Firebase에서 사용자 커스터마이징 불러오기 함수
+async function loadCustomization() {
+  const user = auth.currentUser;
+  if (!user) {
+    console.warn("로그인 안 함 → 기본 색상 적용");
+    return;
+  }
+
+    try {
+    const docRef = doc(db, "users", user.uid, "mokoko", "customization");
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+
+      console.log(data);
+
+      // SVG 색상 업데이트
+      document.getElementById("mokoko-body").setAttribute("fill", data.bodyColor ?? DEFAULT_BODY_COLOR);
+      document.getElementById("mokoko-leaf").setAttribute("fill", data.leafColor ?? DEFAULT_LEAF_COLOR);
+      document.getElementById("mokoko-tongue").setAttribute("fill", data.tongueColor ?? DEFAULT_TONGUE_COLOR);
+      document.getElementById("mokoko-base").setAttribute("fill", data.baseColor ?? DEFAULT_BASE_COLOR);
+      document.getElementById("mokoko-leftarmpit").setAttribute("fill", data.baseColor ?? DEFAULT_BASE_COLOR);
+      document.getElementById("mokoko-rightarmpit").setAttribute("fill", data.baseColor ?? DEFAULT_BASE_COLOR);
+
+    } else {
+      console.log("없는데요");
+    }
+
+  } catch (err) {
+    console.error("서버에서 커마 불러오기 실패:", err);
+  }
+}
+
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    loadCustomization();
+    console.log("불러오기 성공");
+  } else {
+    console.warn("로그인 안 함 → 기본 색상 적용");
+    // 로그인 안 했을 때 기본 색상 적용
+  }
+});
 
 let offsetX = 0; // 클릭한 위치에서 모코코의 x좌표
 let offsetY = 0; // 클릭한 위치에서 모코코의 y좌표
