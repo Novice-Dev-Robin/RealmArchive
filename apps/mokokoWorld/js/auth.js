@@ -1,5 +1,6 @@
 import { auth, db, onAuthStateChanged, doc, getDoc, setDoc} from '../../../JS/firebase_authentication.js';
 
+let rect; // 모코코 바운더리 변수
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
@@ -11,6 +12,9 @@ onAuthStateChanged(auth, async (user) => {
     // 모코코 올라오는 애니메이션
     setTimeout(() => {
       const mokokoMain = document.getElementById("mokoko-main");
+      mokokoMain.classList.remove("hidden");
+
+      rect = mokokoMain.getBoundingClientRect();
       mokokoMain.classList.add("slide-up-mk");
 
       // 애니메이션 끝난 후 slide-up-mk 제거
@@ -46,3 +50,5 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById("login-alert-overlay").classList.remove("hidden");
   }
 });
+
+export {rect};

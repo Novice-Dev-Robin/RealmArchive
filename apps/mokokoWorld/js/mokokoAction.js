@@ -1,11 +1,12 @@
 import { auth, db, getDoc, doc, onAuthStateChanged} from "../../../../JS/firebase_authentication.js";
 
+// 모코코 바운더리 계산
+import {rect} from "./auth.js";
 
 // 모코코 메인 요소 선택
 const mokoko = document.getElementById('mokoko-main');
 
-// 모코코 바운더리 계산
-const rect = mokoko.getBoundingClientRect();
+
 
 // 마우스 눌렸을 때 확인
 let isClicked= false; 
