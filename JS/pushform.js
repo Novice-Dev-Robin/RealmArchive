@@ -62,16 +62,12 @@ async function renderAllStories() {
     const fragment = document.createDocumentFragment();
 
     querySnapshot.forEach(doc => {
-    const story = {
-      firestoreID: doc.id,
-      ...doc.data()
-    };
+        const story = { firestoreID: doc.id, ...doc.data() };
+        const card = createCardElement(story);
+        fragment.appendChild(card);
+    });
 
-    const card = createCardElement(story);
-    fragment.appendChild(card);
-  });
-
-  container.appendChild(fragment);
+    container.appendChild(fragment);
 }
 
 // 이미지 처리
@@ -154,4 +150,4 @@ window.addEventListener("load", () => {
 });
 
 
-export { storyForm };
+export { storyForm, render_after_sorting, RENDER_STORIES_BY_DATE };
