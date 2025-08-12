@@ -1,0 +1,7 @@
+[
+  {
+    "origin": ["https://novice-dev-robin.github.io/RealmArchive/", "http://127.0.0.1:5500"],
+    "method": ["GET", "POST", "PUT", "HEAD", "OPTIONS"],
+    "maxAgeSeconds": 3600
+  }
+]

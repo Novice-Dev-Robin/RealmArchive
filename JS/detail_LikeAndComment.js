@@ -70,7 +70,6 @@ getItemFromDB([]).then(stories => {
   const story = stories.find(item => item.firestoreID === storyID);
 
   storingLike(story);
-
   onAuthStateChanged(auth, (user) => {
     if(user) {
       const user = auth.currentUser;
