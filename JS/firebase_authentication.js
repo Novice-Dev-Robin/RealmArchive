@@ -45,11 +45,11 @@ window.auth = auth;
 
 
 // 앱 초기화 이후
-const storage = getStorage();
+const storage = getStorage(app, 'gs://realmarchive-ef464.firebasestorage.app');
 const provider = new GoogleAuthProvider();
 
 export { db, auth, provider, collection, doc, setDoc, getDoc, getDocs, 
   addDoc, updateDoc, deleteDoc, increment, onSnapshot, onAuthStateChanged,
   GoogleAuthProvider, signInWithPopup};
 
-export { storage, ref, uploadBytes, getDownloadURL };
+export { storage, ref, uploadBytes, getDownloadURL }; // 이미지 관련

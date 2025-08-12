@@ -1,5 +1,6 @@
 import { dateString, formatForDisplay } from "./date.js"; // 날짜 변환 함수 및 변수 import
-import { db, auth, addDoc, getDocs, collection } from "./firebase_authentication.js";
+import { db, auth, addDoc, getDocs, collection, onAuthStateChanged } from "./firebase_authentication.js";
+import { storage, ref, uploadBytes, getDownloadURL} from "./firebase_authentication.js";
 
 const storyForm = document.querySelector("#story-form"); // form에 eventListener 추가
 const title_text = document.querySelector("#titleInput"); // 제목 입력 창
@@ -22,6 +23,14 @@ function createCardElement(story) { // 작성된 글 클릭 시 새 창 - detail
     
     card.appendChild(titleElement);
     card.appendChild(dateElement);
+
+    if (story.imageURL) {
+        const img = document.createElement("img");
+        img.src = story.imageURL;
+        img.alt = "게시글 이미지";
+        img.className = "mt-2 max-w-full rounded-md shadow-md"; // Tailwind 스타일 예시
+        card.appendChild(img);
+    }
 
     // 클릭 시 detail.html로 이동
     card.addEventListener("click", () => {
@@ -65,29 +74,51 @@ async function renderAllStories() {
   container.appendChild(fragment);
 }
 
-// ------------------------------ 게시글 추가 ---------------------------------
+// 이미지 처리
+const imageInput = document.querySelector("#imageInput");
+
+// ------------------------- 게시글 추가 + 이미지 처리 -----------------------------
 async function onInputSubmit(event) { // form에 event 켜지면 실행
     event.preventDefault();
 
-    const title = title_text.value; // 제목
-    title_text.value = "";
-    const text = textarea.value; // 본문
-    textarea.value = "";
+    onAuthStateChanged(auth, async (user) => {
+        if(user) {
+            const title = title_text.value; // 제목
+            title_text.value = "";
+            const text = textarea.value; // 본문
+            textarea.value = "";
 
-    const collection_posts = collection(db, "posts"); // 컬렉션 경로
-    const newStory = await addDoc(collection_posts, {
-        id : Date.now(), // 글 고유 ID - 현재 날짜로 설정
-        uid: auth.currentUser.uid, // 현재 로그인한 사용자 UID 추가
-        title : title, // 제목
-        text : text, // 본문
-        date : formatForDisplay(dateString.date), // 현재 날짜
-        likes : 0 // 좋아요 수
+            let imageURL = null;
+
+            if (imageInput.files.length > 0) {
+                const file = imageInput.files[0];
+                const storageRef = ref(storage, `images/${user.uid}_${Date.now()}_${file.name}`);
+                await uploadBytes(storageRef, file);
+                imageURL = await getDownloadURL(storageRef);
+
+                console.log("업로드할 파일:", file);
+            }
+
+            if(title !== "" && text !== "") { // 공란 걸러내기
+                const collection_posts = collection(db, "posts"); // 컬렉션 경로
+                const newStory = await addDoc(collection_posts, {
+                    id : Date.now(), // 글 고유 ID - 현재 날짜로 설정
+                    uid: user.uid, // 현재 로그인한 사용자 UID 추가
+                    title : title, // 제목
+                    text : text, // 본문
+                    date : formatForDisplay(dateString.date), // 현재 날짜
+                    likes : 0, // 좋아요 수
+                    imageURL : imageURL
+                });
+                renderAllStories();
+                console.log("auth.currentUser:", auth.currentUser);
+                console.log(`✅ 게시글 ${newStory.id} 저장 완료`);
+            }
+        }
+        else {
+            alert("로그인 후 이용해주세요");
+        }
     });
-
-    if(title !== "" && text !== "") { // 공란 걸러내기
-        renderAllStories();
-        console.log(`✅ 게시글 ${newStory.id} 저장 완료`);
-    }
 }
 
 storyForm.addEventListener("submit", onInputSubmit); // 게시글 추가 이벤트
@@ -121,5 +152,6 @@ sortSelect.addEventListener("change", (event) => {
 window.addEventListener("load", () => {
     RENDER_STORIES_BY_DATE("newest"); // 기본 정렬로 렌더링
 });
+
 
 export { storyForm };
