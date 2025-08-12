@@ -2,8 +2,49 @@ import { auth, db, onAuthStateChanged, doc, getDoc, setDoc} from '../../../JS/fi
 
 let rect; // 모코코 바운더리 변수
 
+
+
+// Firebase에서 사용자 커스터마이징 불러오기 함수
+async function loadCustomization() {
+  const user = auth.currentUser;
+  if (!user) {
+    console.warn("로그인 안 함 → 기본 색상 적용");
+    return;
+  }
+
+    try {
+    const docRef = doc(db, "users", user.uid, "mokoko", "customization");
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+
+      console.log(data);
+
+      // SVG 색상 업데이트
+      document.getElementById("mokoko-body").setAttribute("fill", data.bodyColor ?? DEFAULT_BODY_COLOR);
+      document.getElementById("mokoko-leaf").setAttribute("fill", data.leafColor ?? DEFAULT_LEAF_COLOR);
+      document.getElementById("mokoko-tongue").setAttribute("fill", data.tongueColor ?? DEFAULT_TONGUE_COLOR);
+      document.getElementById("mokoko-base").setAttribute("fill", data.baseColor ?? DEFAULT_BASE_COLOR);
+      document.getElementById("mokoko-leftarmpit").setAttribute("fill", data.baseColor ?? DEFAULT_BASE_COLOR);
+      document.getElementById("mokoko-rightarmpit").setAttribute("fill", data.baseColor ?? DEFAULT_BASE_COLOR);
+
+    } else {
+      console.log("없는데요");
+    }
+
+  } catch (err) {
+    console.error("서버에서 커마 불러오기 실패:", err);
+  }
+}
+
+
 onAuthStateChanged(auth, async (user) => {
   if (user) {
+
+    // 모코코 색상 불러오기 먼저
+    loadCustomization();
+    console.log("불러오기 성공");
 
     // 로그인 했으면 팝업 hidden
     document.getElementById("login-alert-overlay").classList.add("hidden");
@@ -48,6 +89,9 @@ onAuthStateChanged(auth, async (user) => {
   
   else { // 로그인 안되어 있으면 팝업 계속..
     document.getElementById("login-alert-overlay").classList.remove("hidden");
+
+    console.warn("로그인 안 함 → 기본 색상 적용");
+    // 로그인 안 했을 때 기본 색상 적용
   }
 });
 
