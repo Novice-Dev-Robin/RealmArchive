@@ -12,6 +12,8 @@ const mokoko = document.getElementById('mokoko-main');
 // 마우스 눌렸을 때 확인
 let isClicked= false; 
 
+
+
 // 기본 색상
 const DEFAULT_BODY_COLOR = "#A1FE50";   // 연녹색
 const DEFAULT_LEAF_COLOR = "#4F7E58";   // 짙은 초록
