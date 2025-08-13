@@ -1,0 +1,12 @@
+.mokoko-card {
+  position: relative;
+  text-align: center;
+}
+
+
+
+.mokoko-name, .mokoko-title {
+  color: #000; /* 배경 대비 선명하게 */
+  font-weight: bold;
+  margin: 2px 0;
+}
