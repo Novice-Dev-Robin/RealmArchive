@@ -314,21 +314,3 @@ body {
 .search-button:hover {
   background-color: #409944;
 }
-
-
-
-
-
-/* 모코코 이름 */
-.mokoko-name {
-  display: none; /* 처음엔 숨김 */
-  position: absolute;
-  bottom: 20px; /* 모코코 위에 위치 */
-  left: 75%;
-  transform: translateX(-50%); /* 중앙 정렬 */
-  color: #000000;
-  font-family: '양진체';
-  font-size: 24px;
-  flex-direction: column; /* 세로 정렬 */
-  align-items: center;     /* 중앙 정렬 */
-} 
