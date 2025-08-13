@@ -16,6 +16,31 @@ function renderDetails(story) {
 
     // 브라우저 탭 제목 변경
     document.title = `${story.title} | Realm Archive`;
+
+    // 이미지 처리
+    const imgContainer = document.querySelector("#imageContainer");
+    imgContainer.innerHTML = ""; // 기존 이미지 비우기
+
+    // 데이터 구조 통일 (배열 or 단일 URL)
+    const urls = Array.isArray(story.imageURLs)
+      ? story.imageURLs
+      : (typeof story.imageURL === "string" && story.imageURL.startsWith("http"))
+          ? [story.imageURL]
+          : [];
+
+    if (urls.length > 0) {
+      for (const imageURL of urls) {
+        const imgElement = document.createElement("img"); // 새 img 태그 생성
+        imgElement.src = imageURL;
+        imgElement.className = "w-full h-auto object-contain rounded-md shadow";
+        imgElement.alt = "게시글 이미지";
+        imgContainer.appendChild(imgElement);
+      }
+      imgContainer.classList.remove("hidden");
+    } else {
+      imgContainer.classList.add("hidden"); // 이미지 없으면 숨기기
+    }
+
   } else {
     document.querySelector("#detailContainer").innerHTML = "<p>글을 찾을 수 없습니다.</p>";
     document.title = "글을 찾을 수 없습니다 | Realm Archive";
@@ -42,9 +67,24 @@ function deleteStory(storyID, story, currentUser) {
     const isConfirmed = confirm("정말 게시글을 삭제하시겠습니까?");
     if (!isConfirmed) return;  // 취소하면 함수 종료
 
-    const deleteRef = doc(db, "posts", storyID);
-    await deleteDoc(deleteRef);
-    console.log("게시글 삭제 완료");
+    const postRef = doc(db, "posts", postId);
+
+    // 1. comments 서브컬렉션 삭제
+    const commentsSnapshot = await getDocs(collection(postRef, "comments"));
+    for (const commentDoc of commentsSnapshot.docs) {
+      await deleteDoc(commentDoc.ref);
+    }
+
+    // 2. likes 서브컬렉션이 있다면 동일하게 삭제
+    const likesSnapshot = await getDocs(collection(postRef, "likes"));
+    for (const likeDoc of likesSnapshot.docs) {
+      await deleteDoc(likeDoc.ref);
+    }
+
+    // 3. 마지막으로 posts 문서 삭제
+    await deleteDoc(postRef);
+
+    console.log(`✅ 게시글 ${postId}와 서브컬렉션 삭제 완료`);
 
     if (location.hostname === "127.0.0.1" || location.hostname === "localhost") {
       // 로컬 개발 환경 (Live Server)
