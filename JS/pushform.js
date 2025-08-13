@@ -11,10 +11,6 @@ const container = document.querySelector("#archiveContainer"); // HTML에 글을
 function createCardElement(story) { // 작성된 글 클릭 시 새 창 - detail.html로 연결
     const card = document.createElement("div");
     card.className = "bg-white cursor-pointer p-4 border border-gray-300 rounded-xl shadow hover:shadow-lg transition";
-
-    // 제목 + 작성자 묶음
-    const headerRow = document.createElement("div");
-    headerRow.className = "flex justify-between items-center mb-1";
     
     // 제목
     const titleElement = document.createElement("h3");
@@ -26,6 +22,10 @@ function createCardElement(story) { // 작성된 글 클릭 시 새 창 - detail
     authorElement.textContent = story.name;
     authorElement.className = "text-sm text-gray-500";
 
+
+    // 제목 + 작성자 묶음
+    const headerRow = document.createElement("div");
+    headerRow.className = "flex justify-between items-center mb-1";
     headerRow.appendChild(titleElement);
     headerRow.appendChild(authorElement);
 
@@ -38,6 +38,7 @@ function createCardElement(story) { // 작성된 글 클릭 시 새 창 - detail
     card.appendChild(headerRow);
     card.appendChild(dateElement);
 
+    // 메인 화면에 이미지 띄우기
     // if (story.imageURL) {
     //     const imgWrapper = document.createElement("div");
     //     imgWrapper.className = "mt-2 w-full max-w-[500px] mx-auto rounded-lg overflow-hidden shadow-md";
@@ -89,8 +90,19 @@ async function renderAllStories() {
     container.appendChild(fragment);
 }
 
-// 이미지 처리
+// 이미지 처리 - onInputSubmit보다 먼저 처리
 const imageInput = document.querySelector("#imageInput");
+const fileNames = document.getElementById("fileNames");
+
+    imageInput.addEventListener("change", () => {
+        if (imageInput.files.length > 0) {
+        // 선택한 모든 파일 이름 표시
+        const names = Array.from(imageInput.files).map(file => file.name);
+        fileNames.textContent = names.join(", ");
+        } else {
+        fileNames.textContent = "";
+        }
+    });
 
 // ------------------------- 게시글 추가 + 이미지 처리 -----------------------------
 async function onInputSubmit(event) { // form에 event 켜지면 실행
@@ -103,15 +115,15 @@ async function onInputSubmit(event) { // form에 event 켜지면 실행
             const text = textarea.value; // 본문
             textarea.value = "";
 
-            let imageURL = null;
+            let imageURLs = [];
 
             if (imageInput.files.length > 0) {
-                const file = imageInput.files[0];
-                const storageRef = ref(storage, `images/${user.uid}_${Date.now()}_${file.name}`);
-                await uploadBytes(storageRef, file);
-                imageURL = await getDownloadURL(storageRef);
-
-                console.log("업로드할 파일:", file);
+                for (let file of imageInput.files) {
+                    const storageRef = ref(storage, `images/${user.uid}_${Date.now()}_${file.name}`);
+                    await uploadBytes(storageRef, file);
+                    const url = await getDownloadURL(storageRef);
+                    imageURLs.push(url);
+                }
             }
 
             if(title !== "" && text !== "") { // 공란 걸러내기
@@ -129,7 +141,7 @@ async function onInputSubmit(event) { // form에 event 켜지면 실행
                     text : text, // 본문
                     date : formatForDisplay(dateString.date), // 현재 날짜
                     likes : 0, // 좋아요 수
-                    imageURL : imageURL || "이미지 없음"
+                    imageURLs : imageURLs.length > 0 ? imageURLs : []
                 });
                 renderAllStories();
                 console.log(`✅ 게시글 ${newStory.id} 저장 완료`);
