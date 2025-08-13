@@ -1,5 +1,5 @@
 import { dateString, formatForDisplay } from "./date.js"; // 날짜 변환 함수 및 변수 import
-import { db, auth, addDoc, getDocs, collection, onAuthStateChanged } from "./firebase_authentication.js";
+import { db, auth, doc, addDoc, getDoc, getDocs, collection, onAuthStateChanged } from "./firebase_authentication.js";
 import { storage, ref, uploadBytes, getDownloadURL} from "./firebase_authentication.js";
 
 const storyForm = document.querySelector("#story-form"); // form에 eventListener 추가
@@ -12,25 +12,44 @@ function createCardElement(story) { // 작성된 글 클릭 시 새 창 - detail
     const card = document.createElement("div");
     card.className = "bg-white cursor-pointer p-4 border border-gray-300 rounded-xl shadow hover:shadow-lg transition";
 
+    // 제목 + 작성자 묶음
+    const headerRow = document.createElement("div");
+    headerRow.className = "flex justify-between items-center mb-1";
+    
+    // 제목
     const titleElement = document.createElement("h3");
     titleElement.innerText = story.title;
     titleElement.className = "text-lg font-semibold text-black-600";
 
+    // 작성자
+    const authorElement = document.createElement("span");
+    authorElement.textContent = story.name;
+    authorElement.className = "text-sm text-gray-500";
+
+    headerRow.appendChild(titleElement);
+    headerRow.appendChild(authorElement);
+
+    // 날짜
     const dateElement = document.createElement("span");
     dateElement.textContent = story.date;
     dateElement.style.fontSize = "12px";
     dateElement.style.color = "grey";
     
-    card.appendChild(titleElement);
+    card.appendChild(headerRow);
     card.appendChild(dateElement);
 
-    if (story.imageURL) {
-        const img = document.createElement("img");
-        img.src = story.imageURL;
-        img.alt = "게시글 이미지";
-        img.className = "mt-2 max-w-full rounded-md shadow-md"; // Tailwind 스타일 예시
-        card.appendChild(img);
-    }
+    // if (story.imageURL) {
+    //     const imgWrapper = document.createElement("div");
+    //     imgWrapper.className = "mt-2 w-full max-w-[500px] mx-auto rounded-lg overflow-hidden shadow-md";
+
+    //     const img = document.createElement("img");
+    //     img.src = story.imageURL;
+    //     img.alt = "게시글 이미지";
+    //     img.className = "w-full h-auto object-contain"; // 원본 비율 유지
+
+    //     imgWrapper.appendChild(img);
+    //     card.appendChild(imgWrapper);
+    // }
 
     // 클릭 시 detail.html로 이동
     card.addEventListener("click", () => {
@@ -96,18 +115,23 @@ async function onInputSubmit(event) { // form에 event 켜지면 실행
             }
 
             if(title !== "" && text !== "") { // 공란 걸러내기
+                // 이름 불러오기
+                const userRef = doc(db, "users", user.uid);
+                const userDoc = await getDoc(userRef);
+                const nickname = userDoc.exists() ? userDoc.data().name : user.displayName || "무명";
+
                 const collection_posts = collection(db, "posts"); // 컬렉션 경로
                 const newStory = await addDoc(collection_posts, {
                     id : Date.now(), // 글 고유 ID - 현재 날짜로 설정
                     uid: user.uid, // 현재 로그인한 사용자 UID 추가
+                    name: nickname, // 작성자 이름
                     title : title, // 제목
                     text : text, // 본문
                     date : formatForDisplay(dateString.date), // 현재 날짜
                     likes : 0, // 좋아요 수
-                    imageURL : imageURL
+                    imageURL : imageURL || "이미지 없음"
                 });
                 renderAllStories();
-                console.log("auth.currentUser:", auth.currentUser);
                 console.log(`✅ 게시글 ${newStory.id} 저장 완료`);
             }
         }

@@ -12,7 +12,7 @@ function renderDetails(story) {
     // 기존 내용 렌더링
     titleElement.innerText = story.title;
     textElement.innerText = story.text;
-    dateElement.innerText = `${story.date} 작성됨`;
+    dateElement.innerText = `${story.name} | ${story.date} 작성됨`;
 
     // 브라우저 탭 제목 변경
     document.title = `${story.title} | Realm Archive`;
@@ -39,9 +39,13 @@ function deleteStory(storyID, story, currentUser) {
   }
 
   deleteBtn.addEventListener("click", async () => {
+    const isConfirmed = confirm("정말 게시글을 삭제하시겠습니까?");
+    if (!isConfirmed) return;  // 취소하면 함수 종료
+
     const deleteRef = doc(db, "posts", storyID);
     await deleteDoc(deleteRef);
     console.log("게시글 삭제 완료");
+
     if (location.hostname === "127.0.0.1" || location.hostname === "localhost") {
       // 로컬 개발 환경 (Live Server)
       window.location.href = "./index.html";
